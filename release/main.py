@@ -2,12 +2,14 @@ import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow
 from PyQt5 import uic
 import sqlite3
+from GUI_1 import Ui_MainWindow
+from GUI_2 import Ui_Form
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
         self.con = sqlite3.connect('coffee.sqlite')
         self.cur = self.con.cursor()
         self.pushButton.clicked.connect(self.view)
@@ -32,10 +34,10 @@ class Example(QMainWindow):
         self.changes.show()
 
 
-class Changes(QWidget):
+class Changes(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
         self.con = sqlite3.connect('coffee.sqlite')
         self.cur = self.con.cursor()
         self.pushButton.clicked.connect(self.change)
